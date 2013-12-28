@@ -16,6 +16,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This activity implements the interface LocationListener. This interface is used for
+ * receiving notifications from the LocationManager when the device location is changed.
+ * The LocationManager is a class that allows us access to the system location services.
+ * 
+ * @author diogo.matos
+ * @see LocationListener
+ * @see LocationManager
+ **/
 public class LocationActivity extends Activity implements LocationListener{
 
 	private final int LOCATION_CHANGE_REQUEST_TIMER = 1000 * 60 * 5; //5 minutes
@@ -99,24 +108,26 @@ public class LocationActivity extends Activity implements LocationListener{
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub	
+		// TODO Called when the provider is disabled by the user.
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub	
+		// TODO Called when the provider is enabled by the user.
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
+		// TODO Called when the provider status changes.
 	}
 	
 	/**
 	 * Get the location from the selected provider
+	 * @return string representative of the location provider
 	 */
 	private String getSelectedProvider(){
 		String provider = "";
+		//verify which radio button is selected and return the provider
 		switch(((RadioGroup)findViewById(R.id.locProvider)).getCheckedRadioButtonId()){
 			case R.id.prov_gps:
 				provider = LocationManager.GPS_PROVIDER;

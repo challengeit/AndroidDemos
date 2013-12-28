@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_title">Location Services</string>
+    <string name="app_name">Location_Android</string>
+    <string name="action_settings">Settings</string>
+    <string name="location_fields">Location Fields</string>
+    <string name="latitude">Latitude: </string>
+    <string name="longitude">Longitude: </string>
+    <string name="location_error">Location not available.</string>
+	<string name="location_btn">Get Location</string>
+	<string name="enabled_btn">Enabled?</string>
+	<string name="settings_btn">Settings</string>
+	<string name="providers_title">Choose a Provider: </string>
+	<string name="radio_gps">GPS</string>
+	<string name="radio_network">Network</string>
+    <string name="radio_passive">Passive</string>
+</resources>

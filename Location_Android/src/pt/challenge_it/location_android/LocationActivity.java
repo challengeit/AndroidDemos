@@ -31,6 +31,7 @@ public class LocationActivity extends Activity implements LocationListener{
 	private TextView longitude;
 	private TextView latitude;
 	private LocationManager locationManager;
+	private boolean validCoordinates = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +50,13 @@ public class LocationActivity extends Activity implements LocationListener{
   			@Override
   			public void onClick(View v) {
   				String provider = getSelectedProvider();
-  				if(locationManager.isProviderEnabled(provider))
+  				if(locationManager.isProviderEnabled(provider)){
   					onLocationChanged(locationManager.getLastKnownLocation(provider));
+  				}
   				else{
   					latitude.setText(R.string.location_error);
   					longitude.setText(R.string.location_error);
+  					validCoordinates = false;
   				}
   			}
   		});
@@ -70,8 +73,19 @@ public class LocationActivity extends Activity implements LocationListener{
   		findViewById(R.id.settingsBtn).setOnClickListener(new OnClickListener() {		
   			@Override
   			public void onClick(View v) {
-  				Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+  			}
+  		});
+  		// - map button
+  		findViewById(R.id.mapBtn).setOnClickListener(new OnClickListener() {		
+  			@Override
+  			public void onClick(View v) {
+  				if(validCoordinates){
+  					Intent intent = new Intent(LocationActivity.this,MapActivity.class);
+  					intent.putExtra("latitude", Double.parseDouble(latitude.getText().toString()));
+  					intent.putExtra("longitude", Double.parseDouble(longitude.getText().toString()));
+  					startActivity(intent); 
+  				}
   			}
   		});
 	}
@@ -101,9 +115,12 @@ public class LocationActivity extends Activity implements LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
-		//update fields with coordinates
-		longitude.setText(String.valueOf(location.getLongitude()));
-		latitude.setText(String.valueOf(location.getLatitude()));
+		if(location != null){
+			//update fields with coordinates
+			longitude.setText(String.valueOf(location.getLongitude()));
+			latitude.setText(String.valueOf(location.getLatitude()));
+			validCoordinates = true;
+		}
 	}
 
 	@Override

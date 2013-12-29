@@ -14,4 +14,5 @@
 	<string name="radio_gps">GPS</string>
 	<string name="radio_network">Network</string>
     <string name="radio_passive">Passive</string>
+    <string name="map_btn">Show Map</string>
 </resources>

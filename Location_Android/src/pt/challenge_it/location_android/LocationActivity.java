@@ -1,6 +1,5 @@
 package pt.challenge_it.location_android;
 
-import pt.flag.android_training.location_android.R;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,7 +20,7 @@ import android.widget.Toast;
  * receiving notifications from the LocationManager when the device location is changed.
  * The LocationManager is a class that allows us access to the system location services.
  * 
- * @author diogo.matos
+ * @author Challenge.IT
  * @see LocationListener
  * @see LocationManager
  **/

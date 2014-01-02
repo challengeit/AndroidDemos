@@ -58,7 +58,7 @@ public class MapActivity extends FragmentActivity {
                         .show();
             } else {
             	// customize map appearance
-            	googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            	googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             	googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
             	
             	// create marker

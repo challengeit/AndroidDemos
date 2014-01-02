@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/set_title">
+        <CheckBoxPreference 
+            android:key="set_onoff"
+            android:title="@string/set_title_onoff" />
+        
+        <ListPreference 
+            android:key="set_delay"
+            android:entries="@array/delay_list"
+            android:entryValues="@array/delay_list"
+            android:title="@string/set_title_delay" />
+        
+        <ListPreference
+            android:title="@string/set_title_list"
+            android:key="set_provider"
+            android:entries="@array/providers_list"
+            android:entryValues="@array/providers_list" />
+    </PreferenceCategory>
+</PreferenceScreen>

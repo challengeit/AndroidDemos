@@ -92,7 +92,7 @@
     </RadioGroup>
     
     <LinearLayout
-        android:id="@+id/btnLayout"
+        android:id="@+id/btnLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -121,11 +121,27 @@
 	        android:layout_marginTop="10dip"
 	        android:text="@string/settings_btn" />
     </LinearLayout>
-    <Button
-        android:id="@+id/mapBtn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    
+    <LinearLayout
+        android:id="@+id/btnLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:text="@string/map_btn" />
+        android:orientation="horizontal" >
+	    
+	    <Button
+	        android:id="@+id/mapBtn"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:text="@string/map_btn" />
+	    
+	    <Button
+	        android:id="@+id/listBtn"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:text="@string/list_btn" />
+    </LinearLayout>
 </LinearLayout>

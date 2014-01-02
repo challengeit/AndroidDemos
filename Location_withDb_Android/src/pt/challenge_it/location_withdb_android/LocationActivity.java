@@ -1,5 +1,7 @@
 package pt.challenge_it.location_withdb_android;
 
+import pt.challenge_it.location_withdb_android.model.CustomLocation;
+import pt.challenge_it.location_withdb_android.providers.CustomLocationManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,11 +28,12 @@ import android.widget.Toast;
  **/
 public class LocationActivity extends Activity implements LocationListener{
 
-	private final int LOCATION_CHANGE_REQUEST_TIMER = 1000 * 60 * 5; //5 minutes
+	private final int LOCATION_CHANGE_REQUEST_TIMER = 1000 * 60 * 10; //10 minutes
 	private TextView longitude;
 	private TextView latitude;
 	private LocationManager locationManager;
 	private boolean validCoordinates = false;
+	private CustomLocationManager manager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,8 @@ public class LocationActivity extends Activity implements LocationListener{
 		longitude = (TextView) findViewById(R.id.longitudeText);
 		latitude = (TextView) findViewById(R.id.latitudeText);
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	    
+	    manager = new CustomLocationManager(this);
+		
 	    //setup buttons behavior
 	    // - location button
   		findViewById(R.id.locationBtn).setOnClickListener(new OnClickListener() {		
@@ -64,7 +68,7 @@ public class LocationActivity extends Activity implements LocationListener{
   			@Override
   			public void onClick(View v) {
   				Toast.makeText(LocationActivity.this
-  						, locationManager.isProviderEnabled(getSelectedProvider()) ? "Enabled" : "Disabled"
+  						, locationManager.isProviderEnabled(getSelectedProvider()) ? getString(R.string.enabled) : getString(R.string.disabled)
   						, Toast.LENGTH_SHORT).show();
   			}
   		});
@@ -81,10 +85,17 @@ public class LocationActivity extends Activity implements LocationListener{
   			public void onClick(View v) {
   				if(validCoordinates){
   					Intent intent = new Intent(LocationActivity.this,MapActivity.class);
-  					intent.putExtra("latitude", Double.parseDouble(latitude.getText().toString()));
-  					intent.putExtra("longitude", Double.parseDouble(longitude.getText().toString()));
+  					intent.putExtra(getString(R.string.param_lat), Double.parseDouble(latitude.getText().toString()));
+  					intent.putExtra(getString(R.string.param_lon), Double.parseDouble(longitude.getText().toString()));
   					startActivity(intent); 
   				}
+  			}
+  		});
+  		// - coordinates button
+  		findViewById(R.id.listBtn).setOnClickListener(new OnClickListener() {		
+  			@Override
+  			public void onClick(View v) {
+                startActivity(new Intent(LocationActivity.this, CoordinatesListActivity.class));
   			}
   		});
 	}
@@ -118,6 +129,11 @@ public class LocationActivity extends Activity implements LocationListener{
 			//update fields with coordinates
 			longitude.setText(String.valueOf(location.getLongitude()));
 			latitude.setText(String.valueOf(location.getLatitude()));
+			manager.save(new CustomLocation(
+								Double.parseDouble(latitude.getText().toString()), 
+								Double.parseDouble(longitude.getText().toString()), 
+								getSelectedProvider()
+						));
 			validCoordinates = true;
 		}
 	}
@@ -144,7 +160,7 @@ public class LocationActivity extends Activity implements LocationListener{
 	private String getSelectedProvider(){
 		String provider = "";
 		//verify which radio button is selected and return the provider
-		switch(((RadioGroup)findViewById(R.id.locProvider)).getCheckedRadioButtonId()){
+		switch(((RadioGroup) findViewById(R.id.locProvider)).getCheckedRadioButtonId()){
 			case R.id.prov_gps:
 				provider = LocationManager.GPS_PROVIDER;
 				break;

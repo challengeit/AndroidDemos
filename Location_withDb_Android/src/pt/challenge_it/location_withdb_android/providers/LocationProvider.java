@@ -120,6 +120,7 @@ public class LocationProvider extends ContentProvider
 		public void onCreate(SQLiteDatabase db)
 		{
 			String columns = LocationContract._ID   + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+							 LocationContract.PROVIDER + " TEXT NOT NULL, " +
 							 LocationContract.LONGITUDE + " REAL NOT NULL, " +
 					         LocationContract.LATITUDE + " REAL NOT NULL";
 			

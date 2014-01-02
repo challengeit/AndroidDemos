@@ -41,6 +41,11 @@
             </intent-filter>
         </activity>
         <activity android:name="pt.challenge_it.location_withdb_android.MapActivity" />
+        <activity android:name="pt.challenge_it.location_withdb_android.CoordinatesListActivity" />
+        
+        <provider android:name="pt.challenge_it.location_withdb_android.providers.LocationProvider"
+                  android:authorities="pt.challenge_it.location_withdb_android.providers.locationprovider" 
+                  android:exported="false" />   
         
         <!-- Information about the Google API Console project -->
         <meta-data

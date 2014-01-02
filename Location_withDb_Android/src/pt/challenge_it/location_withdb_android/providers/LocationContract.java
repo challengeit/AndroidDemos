@@ -18,7 +18,8 @@ public class LocationContract {
 	// Columns names.
 	public static final String _ID 	 = BaseColumns._ID,
 							   LONGITUDE = "longitude",
-							   LATITUDE = "latitude";
+							   LATITUDE = "latitude",
+							   PROVIDER = "provider";
 	
 	// Content URI for subset of provided data from location provider.
 	public static Uri CONTENT_URI = Uri.withAppendedPath(LocationProvider.CONTENT_URI, TABLE);

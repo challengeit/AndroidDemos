@@ -1,5 +1,6 @@
 package pt.challenge_it.location_withdb_android;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -23,13 +24,14 @@ public class MapActivity extends FragmentActivity {
     private double latitude;
     private double longitude;
     private final double DEFAULT_VALUE = 0.0d;
+    private final float ZOOM = 17.0f;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-		latitude = getIntent().getDoubleExtra("latitude", DEFAULT_VALUE);
-		longitude = getIntent().getDoubleExtra("longitude", DEFAULT_VALUE);
+		latitude = getIntent().getDoubleExtra(getString(R.string.param_lat), DEFAULT_VALUE);
+		longitude = getIntent().getDoubleExtra(getString(R.string.param_lon), DEFAULT_VALUE);
 		initializeMap();
 	}
 	
@@ -52,16 +54,21 @@ public class MapActivity extends FragmentActivity {
             // check if map is created successfully
             if (googleMap == null) {
                 Toast.makeText(getApplicationContext(),
-                        "Sorry! unable to create maps", Toast.LENGTH_SHORT)
+                        getString(R.string.error_loc_msg), Toast.LENGTH_SHORT)
                         .show();
             } else {
+            	// customize map appearance
+            	googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            	googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), ZOOM));
+            	
             	// create marker
             	MarkerOptions marker = new MarkerOptions()
             								.position(new LatLng(latitude, longitude))
-            								.title("My Location");
+            								.title(getString(R.string.location));
             	 
             	// adding marker
             	googleMap.addMarker(marker);
+            	
             }
         }
 	}

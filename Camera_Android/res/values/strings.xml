@@ -10,4 +10,12 @@
 	<string name="camera_error">Error opening the camera.</string>
 	<string name="camera_prev_error">Error opening camera preview.</string>
 	<string name="main_title">Camera Android</string>
+	<string name="date_mask">yyyy-MM-dd HH:mm:ss</string>
+	<string name="btn_cancel">Cancel</string>
+	<string name="btn_submit">Submit</string>
+	<string name="popup_title">Enter the Details</string>
+	<string name="label_name">Name</string>
+	<string name="label_desc">Description</string>
+	<string name="default_name">default name</string>
+	<string name="default_desc">default desc</string>
 </resources>

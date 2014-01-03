@@ -121,7 +121,9 @@ public class PhotoProvider extends ContentProvider
 		{
 			String columns = PhotoContract._ID   + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
 							 PhotoContract.IMAGE + " BLOB NOT NULL, " +
-					         PhotoContract.DESCRIPTION + " TEXT NOT NULL";
+							 PhotoContract.NAME + " TEXT NOT NULL, " +
+					         PhotoContract.DESCRIPTION + " TEXT, " +
+					         PhotoContract.CREATED_AT + " INTEGER NOT NULL";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " + PhotoContract.TABLE + " (" + columns + ")";
 			db.execSQL(sql);

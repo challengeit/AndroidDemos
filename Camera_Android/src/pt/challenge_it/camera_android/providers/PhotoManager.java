@@ -45,7 +45,9 @@ public class PhotoManager {
 		while(cursor.moveToNext()){
 			photos.add(new Photo(
 								Photo.byteArrayToBitmap(cursor.getBlob(cursor.getColumnIndex(PhotoContract.IMAGE))),
-								cursor.getString(cursor.getColumnIndex(PhotoContract.DESCRIPTION))
+								cursor.getString(cursor.getColumnIndex(PhotoContract.DESCRIPTION)),
+								cursor.getString(cursor.getColumnIndex(PhotoContract.NAME)),
+								Photo.longToDate(cursor.getInt(cursor.getColumnIndex(PhotoContract.CREATED_AT)))
 								)
 						);
 		}

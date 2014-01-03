@@ -18,7 +18,9 @@ public class PhotoContract {
 	// Columns names.
 	public static final String _ID 	 = BaseColumns._ID,
 							   IMAGE = "image",
-							   DESCRIPTION = "description";
+							   NAME = "name",
+							   DESCRIPTION = "description",
+							   CREATED_AT = "created_at";
 	
 	// Content URI for subset of provided data from location provider.
 	public static Uri CONTENT_URI = Uri.withAppendedPath(PhotoProvider.CONTENT_URI, TABLE);

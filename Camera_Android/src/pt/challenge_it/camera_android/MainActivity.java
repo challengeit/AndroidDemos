@@ -4,6 +4,8 @@ import pt.challenge_it.camera_android.model.Photo;
 import pt.challenge_it.camera_android.providers.PhotoManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.view.Surface;
@@ -11,6 +13,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -80,8 +84,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 					camera.takePicture(null, null, new PictureCallback() {
 						@Override
 						public void onPictureTaken(byte[] data, Camera camera) {
-							//TODO save image in db
-							manager.save(new Photo(Photo.byteArrayToBitmap(data),"default description"));
+							createPopup(data);
 						}
 					});
 				}
@@ -114,7 +117,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
      * @param cameraId
      * @param camera
      */
-    public static void setCameraDisplayOrientation(Activity activity,
+    private static void setCameraDisplayOrientation(Activity activity,
             int cameraId, android.hardware.Camera camera) {
         android.hardware.Camera.CameraInfo info =
                 new android.hardware.Camera.CameraInfo();
@@ -137,5 +140,48 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
             result = (info.orientation - degrees + 360) % 360;
         }
         camera.setDisplayOrientation(result);
+    }
+    
+    /**
+     * This method builds a popup window to user type the name and description of the photo
+     * @param photo
+     */
+    private void createPopup(final byte[] photo){
+    	// prepare popup dialog
+    	AlertDialog.Builder adBuilder = new AlertDialog.Builder(this);
+    	final EditText editName = new EditText(this),
+    				   editDesc = new EditText(this);
+    	TextView labelName = new TextView(this),
+				 labelDesc = new TextView(this);
+    	labelName.setText(R.string.label_name);
+    	labelDesc.setText(R.string.label_desc);
+		adBuilder.setMessage(getString(R.string.popup_title));
+		adBuilder.setView(labelName);
+		adBuilder.setView(editName);
+		adBuilder.setView(labelDesc);
+		adBuilder.setView(editDesc);
+		adBuilder.setCancelable(true);
+		
+		// buttons behavior
+		adBuilder.setNegativeButton(getString(R.string.btn_cancel),
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		}); 
+		adBuilder.setPositiveButton(getString(R.string.btn_submit),
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				manager.save(new Photo(Photo.byteArrayToBitmap(photo),
+							 editName.getText() != null ? editName.getText().toString() : getString(R.string.default_desc),
+							 editDesc.getText() != null ? editDesc.getText().toString() : getString(R.string.default_name),
+							 Photo.longToDate(System.currentTimeMillis())
+						));
+			}
+		});
+		
+		// create and show popup
+		AlertDialog alertDialog = adBuilder.create();
+		alertDialog.show();
     }
 }

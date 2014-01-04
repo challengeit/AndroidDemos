@@ -30,7 +30,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private final int CAMERA_NUMBER = 1;
-    private boolean camera_connected = false;
     private PhotoManager manager;
 
     @Override
@@ -41,55 +40,17 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         manager = new PhotoManager(this);
         
         //setup button listeners
-        // start button
-        findViewById(R.id.btn_start).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(!camera_connected){
-					try
-			    	{
-			    		camera = Camera.open();
-			    	}
-			    	catch(RuntimeException e)
-			    	{
-			    		Toast.makeText(MainActivity.this, R.string.camera_error, Toast.LENGTH_SHORT).show();
-			    		return;
-			    	}
-			    	setCameraDisplayOrientation(MainActivity.this, CAMERA_NUMBER, camera);
-			    	try {
-			    		camera.setPreviewDisplay(surfaceHolder);
-			    		camera.startPreview();
-			    	} catch (Exception e) {
-			    		Toast.makeText(MainActivity.this, R.string.camera_prev_error, Toast.LENGTH_SHORT).show();
-			    		return;
-			    	}
-			    	camera_connected = true;
-				}
-			}
-		});
-        // stop button
-        findViewById(R.id.btn_stop).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(camera_connected){
-					camera.stopPreview();
-					camera.release();
-					camera_connected = false;
-				}
-			}
-		});
      	// capture button
         findViewById(R.id.btn_take_photo).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(camera_connected){
-					camera.takePicture(null, null, new PictureCallback() {
-						@Override
-						public void onPictureTaken(byte[] data, Camera camera) {
-							createPopup(data);
-						}
-					});
-				}
+				camera.takePicture(null, null, new PictureCallback() {
+					@Override
+					public void onPictureTaken(byte[] data, Camera camera) {
+						createPopup(data);
+						camera.startPreview();
+					}
+				});
 			}
 		});
         // list button
@@ -106,16 +67,40 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         surfaceHolder.addCallback(this);
     }
 
+    //This is called immediately after any structural changes (format or size) have been made to the surface.
+    @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        // TODO This is called immediately after any structural changes (format or size) have been made to the surface.
+        camera.startPreview();
     }
 
-    public void surfaceCreated(SurfaceHolder holder) {
-        // TODO This is called immediately after the surface is first created.
+    //This is called immediately after the surface is first created.
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {    
+    	try
+    	{
+    		camera = Camera.open();
+    	}
+    	catch(RuntimeException e)
+    	{
+    		Toast.makeText(MainActivity.this, R.string.camera_error, Toast.LENGTH_SHORT).show();
+    		return;
+    	}
+    	setCameraDisplayOrientation(MainActivity.this, CAMERA_NUMBER, camera);
+    	try {
+    		camera.setPreviewDisplay(surfaceHolder);
+    		//camera.startPreview();
+    	} catch (Exception e) {
+    		Toast.makeText(MainActivity.this, R.string.camera_prev_error, Toast.LENGTH_SHORT).show();
+    		return;
+    	}
     }
 
+    //This is called immediately before a surface is being destroyed.
+    @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // TODO This is called immediately before a surface is being destroyed.
+    	camera.stopPreview();
+        camera.release();
+        camera = null;
     }
     
     /**

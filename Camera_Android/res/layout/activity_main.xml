@@ -8,23 +8,12 @@
 	   android:orientation="horizontal"
 	   android:layout_width="fill_parent"
 	   android:layout_height="wrap_content" >
-	    <Button
-	        android:id="@+id/btn_start"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/start" />
 	    
 	    <Button
 	        android:id="@+id/btn_take_photo"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/take_photo" />
-	    
-	    <Button
-	        android:id="@+id/btn_stop"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/stop" />
 	    
 	    <Button
 	        android:id="@+id/btn_list"

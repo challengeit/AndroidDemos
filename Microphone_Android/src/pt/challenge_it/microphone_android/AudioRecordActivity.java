@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 public class AudioRecordActivity extends Activity {
 	
-	private Button playButton;
+	private Button playButton; 
 	private Button recordButton;
     private String filename;
     private MediaRecorder mediaRecorder;

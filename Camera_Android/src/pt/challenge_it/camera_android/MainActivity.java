@@ -1,20 +1,22 @@
 package pt.challenge_it.camera_android;
 
+import java.util.Date;
 import pt.challenge_it.camera_android.model.Photo;
 import pt.challenge_it.camera_android.providers.PhotoManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -90,6 +92,13 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 				}
 			}
 		});
+        // list button
+        findViewById(R.id.btn_list).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(MainActivity.this, PhotosListActivity.class));
+			}
+		});
         
         // surface settings
         surfaceView = (SurfaceView) findViewById(R.id.surfaceview);
@@ -147,19 +156,14 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
      * @param photo
      */
     private void createPopup(final byte[] photo){
+    	// Get the layout inflater
+        LayoutInflater inflater = getLayoutInflater();
+        
     	// prepare popup dialog
     	AlertDialog.Builder adBuilder = new AlertDialog.Builder(this);
-    	final EditText editName = new EditText(this),
-    				   editDesc = new EditText(this);
-    	TextView labelName = new TextView(this),
-				 labelDesc = new TextView(this);
-    	labelName.setText(R.string.label_name);
-    	labelDesc.setText(R.string.label_desc);
-		adBuilder.setMessage(getString(R.string.popup_title));
-		adBuilder.setView(labelName);
-		adBuilder.setView(editName);
-		adBuilder.setView(labelDesc);
-		adBuilder.setView(editDesc);
+		final View view = inflater.inflate(R.layout.photo_popup, null);
+		adBuilder.setView(view);
+		adBuilder.setTitle(R.string.popup_title);
 		adBuilder.setCancelable(true);
 		
 		// buttons behavior
@@ -172,10 +176,12 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 		adBuilder.setPositiveButton(getString(R.string.btn_submit),
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				EditText editName = (EditText) view.findViewById(R.id.edit_name);
+				EditText editDesc = (EditText) view.findViewById(R.id.edit_desc);
 				manager.save(new Photo(Photo.byteArrayToBitmap(photo),
-							 editName.getText() != null ? editName.getText().toString() : getString(R.string.default_desc),
-							 editDesc.getText() != null ? editDesc.getText().toString() : getString(R.string.default_name),
-							 Photo.longToDate(System.currentTimeMillis())
+							 editDesc.getText().toString().isEmpty() ? getString(R.string.default_desc) : editDesc.getText().toString(),
+							 editName.getText().toString().isEmpty() ? getString(R.string.default_name) : editName.getText().toString(),
+							 new Date()
 						));
 			}
 		});

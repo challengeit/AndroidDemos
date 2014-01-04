@@ -123,7 +123,7 @@ public class PhotoProvider extends ContentProvider
 							 PhotoContract.IMAGE + " BLOB NOT NULL, " +
 							 PhotoContract.NAME + " TEXT NOT NULL, " +
 					         PhotoContract.DESCRIPTION + " TEXT, " +
-					         PhotoContract.CREATED_AT + " INTEGER NOT NULL";
+					         PhotoContract.CREATED_AT + " TEXT NOT NULL";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " + PhotoContract.TABLE + " (" + columns + ")";
 			db.execSQL(sql);

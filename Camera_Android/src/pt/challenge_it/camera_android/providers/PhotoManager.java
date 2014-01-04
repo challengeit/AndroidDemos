@@ -31,6 +31,8 @@ public class PhotoManager {
 		ContentValues values = new ContentValues();
 		values.put(PhotoContract.IMAGE, photo.getBitmapAsByteArray());
 		values.put(PhotoContract.DESCRIPTION, photo.getDescription());
+		values.put(PhotoContract.NAME, photo.getName());
+		values.put(PhotoContract.CREATED_AT, photo.getCreated_at().getTime());
 		context.getContentResolver().insert(PhotoProvider.CONTENT_URI, values);
 	}
 	
@@ -47,7 +49,7 @@ public class PhotoManager {
 								Photo.byteArrayToBitmap(cursor.getBlob(cursor.getColumnIndex(PhotoContract.IMAGE))),
 								cursor.getString(cursor.getColumnIndex(PhotoContract.DESCRIPTION)),
 								cursor.getString(cursor.getColumnIndex(PhotoContract.NAME)),
-								Photo.longToDate(cursor.getInt(cursor.getColumnIndex(PhotoContract.CREATED_AT)))
+								Photo.longToDate(Long.parseLong(cursor.getString(cursor.getColumnIndex(PhotoContract.CREATED_AT))))
 								)
 						);
 		}

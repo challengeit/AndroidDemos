@@ -6,13 +6,11 @@
     
     <ImageView
         android:id="@+id/photo_id"
-        android:layout_width="80dip"
-        android:layout_height="100dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/photo_desc"
-        android:paddingTop="1dp"
         android:paddingRight="15dp"
-        android:paddingLeft="5dp"
-        android:paddingBottom="1dp" />
+        android:paddingLeft="5dp" />
  
     <LinearLayout
         android:layout_width="match_parent"

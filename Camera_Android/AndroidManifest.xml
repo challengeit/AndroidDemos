@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="pt.challenge_it.camera_android.PhotosListActivity" />
         
         <provider android:name="pt.challenge_it.camera_android.providers.PhotoProvider"
                   android:authorities="pt.challenge_it.camera_android.providers.photoprovider" 

@@ -24,6 +24,8 @@ public class Photo {
 	/**
 	 * @param image
 	 * @param description
+	 * @param name
+	 * @param creation date
 	 */
 	public Photo(Bitmap image, String description, String name, Date created_at) {
 		this.image = image;

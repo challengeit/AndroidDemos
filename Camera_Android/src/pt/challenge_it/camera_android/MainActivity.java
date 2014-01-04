@@ -178,7 +178,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
 			public void onClick(DialogInterface dialog, int id) {
 				EditText editName = (EditText) view.findViewById(R.id.edit_name);
 				EditText editDesc = (EditText) view.findViewById(R.id.edit_desc);
-				manager.save(new Photo(Photo.byteArrayToBitmap(photo),
+				manager.save(new Photo(photo,
 							 editDesc.getText().toString().isEmpty() ? getString(R.string.default_desc) : editDesc.getText().toString(),
 							 editName.getText().toString().isEmpty() ? getString(R.string.default_name) : editName.getText().toString(),
 							 new Date()

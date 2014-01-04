@@ -4,10 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 
 /**
  * This class represents a photo
@@ -16,7 +14,7 @@ import android.graphics.BitmapFactory;
  */
 public class Photo {
 
-	private Bitmap image;
+	private byte[] image;
 	private String description;
 	private String name;
 	private Date created_at;
@@ -27,7 +25,7 @@ public class Photo {
 	 * @param name
 	 * @param creation date
 	 */
-	public Photo(Bitmap image, String description, String name, Date created_at) {
+	public Photo(byte[] image, String description, String name, Date created_at) {
 		this.image = image;
 		this.description = description;
 		this.name = name;
@@ -37,7 +35,7 @@ public class Photo {
 	/**
 	 * @return the image
 	 */
-	public Bitmap getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
@@ -67,19 +65,10 @@ public class Photo {
 	 * @param bitmap
 	 * @return byte array 
 	 */
-	public byte[] getBitmapAsByteArray() {
+	public static byte[] getBitmapAsByteArray(Bitmap image) {
 	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	    image.compress(CompressFormat.JPEG, 0, outputStream);       
 	    return outputStream.toByteArray();
-	}
-	
-	/**
-	 * Convert byte array to bitmap
-	 * @param byte array
-	 * @return bitmap
-	 */
-	public static Bitmap byteArrayToBitmap(byte[] array){
-		return BitmapFactory.decodeByteArray(array, 0, array.length);
 	}
 	
 	/**

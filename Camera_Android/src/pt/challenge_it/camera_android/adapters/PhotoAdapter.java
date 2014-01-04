@@ -1,10 +1,10 @@
 package pt.challenge_it.camera_android.adapters;
 
 import java.util.List;
+import pt.challenge_it.camera_android.asynctasks.BitmapWorker;
 import pt.challenge_it.camera_android.model.Photo;
 import pt.challenge_it.camera_android.R;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +20,6 @@ import android.widget.TextView;
 public class PhotoAdapter extends ArrayAdapter<Photo>{
 
 	private LayoutInflater _inflater;
-	private final int MAX_WIDTH = 90;
-	private final int MAX_HEIGHT = 100;
 	
 	/**
 	 * @param context of an Activity
@@ -50,8 +48,8 @@ public class PhotoAdapter extends ArrayAdapter<Photo>{
         	        
 		Photo photo = getItem(position);	        
         // Setting all values in listview
-		holder.image.setImageBitmap(Bitmap.createScaledBitmap(photo.getImage(), MAX_WIDTH, MAX_HEIGHT, false));
-        holder.name.setText(photo.getName());
+        new BitmapWorker(holder.image).execute(photo.getImage());
+		holder.name.setText(photo.getName());
         holder.description.setText(photo.getDescription());
         holder.created_at.setText(photo.dateToString(getContext().getString(R.string.date_mask)));
         return vi;

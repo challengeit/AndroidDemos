@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HttpRequests_Android</string>
+    <string name="action_settings">Settings</string>
+    <string name="description">HTTP request example. Makes an request to "http://openweathermap.org/" to get the current weather in Lisbon.</string>
+	<string name="btn_weather">Get the weather</string>
+    
+</resources>

@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.app.Activity;
 
 /**
- * 
+ * This POC provides an demonstration of usage of HTTP requests. 
+ * Performs an request to get the current Lisbon's weather and treat 
+ * the JSON response.
  * @author Challenge.IT
  * */
 public class MainActivity extends Activity 

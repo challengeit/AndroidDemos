@@ -89,4 +89,15 @@ public class Photo {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(mask, Locale.getDefault());
 		return dateFormat.format(created_at);
 	}
+	
+	/**
+	 * Return a string with the date formatted to the parameter mask
+	 * @param date in millis
+	 * @param mask
+	 * @return string with date formatted
+	 */
+	public static String dateToString(long date, String mask){
+		SimpleDateFormat dateFormat = new SimpleDateFormat(mask, Locale.getDefault());
+		return dateFormat.format(date);
+	}
 }

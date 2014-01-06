@@ -5,6 +5,7 @@ package pt.challenge_it.location_automatic_android.services;
 
 import pt.challenge_it.location_automatic_android.LocationApp;
 import pt.challenge_it.location_automatic_android.model.CustomLocation;
+import pt.challenge_it.location_automatic_android.providers.LocationContract;
 import pt.challenge_pt.location_automatic_android.R;
 import android.app.Service;
 import android.content.Intent;
@@ -38,6 +39,9 @@ public class LocationService extends Service {
 						provider,
 						CustomLocation.AUTOMATIC_ORIGIN
 				));
+				
+				// trigger notification
+				getContentResolver().notifyChange(LocationContract.CONTENT_URI, null);
 			}
 		}
 		

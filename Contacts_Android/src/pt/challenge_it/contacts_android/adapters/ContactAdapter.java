@@ -15,26 +15,26 @@ import android.widget.TextView;
  * 
  * @author Challenge.IT
  */
-public class ContactAdapter extends ArrayAdapter<Contact>{
-
-	private LayoutInflater _inflater;
-	
+public class ContactAdapter extends ArrayAdapter<Contact>
+{
 	/**
 	 * @param context of an Activity
 	 * @param list of contacts
 	 */
-	public ContactAdapter(Context context, List<Contact> elems){
+	public ContactAdapter(Context context, List<Contact> elems)
+	{
 		super(context, R.layout.contact_row, elems);
-		_inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent) 
+	{
 		View vi = convertView;
 		ValueHolder holder = new ValueHolder();
         //If the convertView is not yet constructed, affect the holder and save it in a Tag inside the view
-		if(convertView == null){
-            vi = _inflater.inflate(R.layout.contact_row, null);
+		if(convertView == null)
+		{
+            vi = ((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.contact_row, null);
             holder.name = (TextView) vi.findViewById(R.id.contact_name);
             holder.phone = (TextView) vi.findViewById(R.id.contact_phone);
             vi.setTag(holder);
@@ -52,7 +52,8 @@ public class ContactAdapter extends ArrayAdapter<Contact>{
 	/**
 	 * This class is used to save the properties of a row in the list view
 	 */
-	private static class ValueHolder{
+	private static class ValueHolder
+	{
 		TextView name;
 		TextView phone;
 	}

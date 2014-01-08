@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,9 +48,12 @@ public class LocationActivity extends Activity implements LocationListener{
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	    manager = new CustomLocationManager(this);
 		
+	    
 	    //setup buttons behavior
 	    // - location button
-  		findViewById(R.id.locationBtn).setOnClickListener(new OnClickListener() {		
+	    
+	    Button button = (Button) findViewById(R.id.locationBtn);
+  		button.setOnClickListener(new OnClickListener() {		
   			@Override
   			public void onClick(View v) {
   				String provider = getSelectedProvider();

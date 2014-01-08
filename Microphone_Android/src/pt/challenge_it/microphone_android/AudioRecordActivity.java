@@ -101,6 +101,7 @@ public class AudioRecordActivity extends Activity {
      * This method is responsible for stop media player
      */
     private void stopPlaying() {
+    	mediaPlayer.stop();
         mediaPlayer.release();
         mediaPlayer = null;
     }
